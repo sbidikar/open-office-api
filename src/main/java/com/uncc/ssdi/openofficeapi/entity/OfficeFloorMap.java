@@ -20,10 +20,4 @@ public class OfficeFloorMap {
 
     @Column(nullable = false)
     private String desk;
-
-    @Column(nullable = false)
-    private String available;
-
-    @Column(nullable = false)
-    private String reservedBy;
 }

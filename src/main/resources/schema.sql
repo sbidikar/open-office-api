@@ -1,13 +1,11 @@
-drop table if exists office_floor_map;
+drop table if exists sys.office_floor_map;
 
-create table office_floor_map
-(
-    id          integer      not null auto_increment,
-    available   varchar(255) not null,
-    building    varchar(255) not null,
-    desk        varchar(255) not null,
-    floor       varchar(255) not null,
-    location    varchar(255) not null,
-    reserved_by varchar(255) not null,
-    primary key (id)
+CREATE TABLE `office_floor_map` (
+                        `id` int(8) NOT NULL AUTO_INCREMENT,
+                        `location` varchar(20) NOT NULL,
+                        `building` varchar(20) NOT NULL,
+                        `floor` varchar(20) NOT NULL,
+                        `desk` varchar(20) NOT NULL,
+                        PRIMARY KEY (`id`),
+                        UNIQUE KEY `desk_unique` (`desk`)
 );
