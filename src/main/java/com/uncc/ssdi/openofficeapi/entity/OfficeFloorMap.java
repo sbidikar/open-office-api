@@ -27,4 +27,44 @@ public class OfficeFloorMap {
     @JsonProperty
     @Column(nullable = false)
     private String desk;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getBuilding() {
+        return building;
+    }
+
+    public void setBuilding(String building) {
+        this.building = building;
+    }
+
+    public String getFloor() {
+        return floor;
+    }
+
+    public void setFloor(String floor) {
+        this.floor = floor;
+    }
+
+    public String getDesk() {
+        return desk;
+    }
+
+    public void setDesk(String desk) {
+        this.desk = desk;
+    }
 }
