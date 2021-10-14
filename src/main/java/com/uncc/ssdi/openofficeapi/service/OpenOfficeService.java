@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OpenOfficeService {
@@ -31,12 +32,16 @@ public class OpenOfficeService {
     public List<OfficeFloorMap> search(SearchRequest searchRequest) {
         List<ReservedDesk> reservedDesks = reservedDeskRepository.findByReservedDate(searchRequest.getReserveDate());
         List<OfficeFloorMap> officeFloorMaps = findAll();
-        if(CollectionUtils.isNotEmpty(reservedDesks)){
-            reservedDesks.forEach(r ->{
-                officeFloorMaps.removeIf(o -> o.getId() == r.getFloorMapId());
+        List<OfficeFloorMap> filteredOfficeFloorMap = officeFloorMaps.stream()
+                .filter(a -> null != searchRequest.getBuilding() ? searchRequest.getBuilding().equals(a.getBuilding()): true)
+                .filter(a -> null != searchRequest.getFloor() ? searchRequest.getFloor().equals(a.getFloor()): true)
+                .collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(reservedDesks)) {
+            reservedDesks.forEach(r -> {
+                filteredOfficeFloorMap.removeIf(o -> o.getId() == r.getFloorMapId());
             });
         }
-        return officeFloorMaps;
+        return filteredOfficeFloorMap;
     }
 
     public void save(ReservedDesk reservedDesk) {

@@ -7,6 +7,8 @@ public class UserDetail {
     private String userId;
     @JsonProperty
     private String userName;
+    @JsonProperty
+    private String userEmail;
 
     public String getUserId() {
         return userId;
@@ -22,5 +24,13 @@ public class UserDetail {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

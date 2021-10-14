@@ -7,7 +7,6 @@ public class SearchRequest {
     private String location;
     private String building;
     private String floor;
-    private String desk;
     private Date reserveDate;
 
     public UserDetail getUserDetail() {
@@ -40,14 +39,6 @@ public class SearchRequest {
 
     public void setFloor(String floor) {
         this.floor = floor;
-    }
-
-    public String getDesk() {
-        return desk;
-    }
-
-    public void setDesk(String desk) {
-        this.desk = desk;
     }
 
     public Date getReserveDate() {
