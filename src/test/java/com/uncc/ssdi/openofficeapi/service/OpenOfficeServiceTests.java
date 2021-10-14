@@ -42,21 +42,4 @@ public class OpenOfficeServiceTests {
         verify(officeFloorMapRepository).findAll();
         assertEquals(officeFloorMapsMock,officeFloorMapsResult);
     }
-
-    @Test
-    public void testFindByLocation() {
-        assertNotNull(officeFloorMapRepository);
-        OfficeFloorMap officeFloorMap = new OfficeFloorMap();
-        officeFloorMap.setId(new Long(1));
-        officeFloorMap.setLocation("Test Location");
-        officeFloorMap.setBuilding("Test Building");
-        officeFloorMap.setFloor("Test Floor");
-        officeFloorMap.setDesk("Test Desk");
-        List<OfficeFloorMap> officeFloorMapsMock = new ArrayList<>();
-        officeFloorMapsMock.add(officeFloorMap);
-        when(officeFloorMapRepository.findByLocation("Test Location")).thenReturn(officeFloorMapsMock);
-        List<OfficeFloorMap> officeFloorMapsResult = openOfficeService.findByLocation("Test Location");
-        verify(officeFloorMapRepository).findByLocation("Test Location");
-        assertEquals(officeFloorMapsMock,officeFloorMapsResult);
-    }
 }

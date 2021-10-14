@@ -10,6 +10,8 @@ import java.util.List;
 @Repository
 public interface ReservedDeskRepository extends JpaRepository<ReservedDesk, Long> {
 
+    public List<ReservedDesk> findByReservedDate(Date reservedDate);
+
     public List<ReservedDesk> findByUserIdAndReservedDate(String userId, Date reservedDate);
 
 }

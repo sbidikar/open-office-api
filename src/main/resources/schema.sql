@@ -14,13 +14,9 @@ CREATE TABLE `office_floor_map`
 
 CREATE TABLE `reserved_desk`
 (
-    `id`           int(8) NOT NULL AUTO_INCREMENT,
-    `user_id`      varchar(20) ,
-    `user`         varchar(20) ,
-    `location`     varchar(20) ,
-    `building`     varchar(20) ,
-    `floor`        varchar(20) ,
-    `desk`         varchar(20) ,
+    `user_id`       varchar(20),
+    `user_name`     varchar(20),
+    `floor_map_id`  int(8),
     `reserved_date` date,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`user_id`)
 );
