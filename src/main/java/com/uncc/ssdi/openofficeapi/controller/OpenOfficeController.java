@@ -27,7 +27,7 @@ public class OpenOfficeController {
     }
 
     @PostMapping("/save")
-    public void save(@RequestBody ReservedDesk reservedDesk) {
-        openOfficeService.save(reservedDesk);
+    public String save(@RequestBody ReservedDesk reservedDesk) {
+        return openOfficeService.save(reservedDesk);
     }
 }
