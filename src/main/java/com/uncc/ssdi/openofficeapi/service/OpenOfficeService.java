@@ -8,9 +8,11 @@ import com.uncc.ssdi.openofficeapi.repository.ReservedDeskRepository;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.Iterator;
 
 @Service
 public class OpenOfficeService {
@@ -44,7 +46,23 @@ public class OpenOfficeService {
         return filteredOfficeFloorMap;
     }
 
-    public void save(ReservedDesk reservedDesk) {
-        reservedDeskRepository.save(reservedDesk);
+    public String save(ReservedDesk reservedDesk) {
+        List<ReservedDesk> reservedDesks = reservedDeskRepository.findAll();
+        if(reservedDesks.isEmpty()) {
+            reservedDeskRepository.save(reservedDesk);
+            return "Desk reserved successfully!";
+        } else {
+            Iterator<ReservedDesk> iterator = reservedDesks.iterator();
+            while(iterator.hasNext()) {
+                if(iterator.next().getFloorMapId().equals(reservedDesk.getFloorMapId()) && iterator.next().getReservedDate().equals(reservedDesk.getReservedDate())) {
+                    return "Error: desk already reserved.";
+                } else {
+                    reservedDeskRepository.save(reservedDesk);
+                    return "Desk reserved successfully!";
+                }
+            }
+        }
+        return "Error: invalid desk reservation.";
     }
+
 }
