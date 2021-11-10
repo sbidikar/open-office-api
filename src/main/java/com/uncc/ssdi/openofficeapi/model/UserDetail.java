@@ -10,6 +10,8 @@ public class UserDetail {
     @JsonProperty
     private String userEmail;
 
+    private TestInterface testInterface;
+
     public String getUserId() {
         return userId;
     }
