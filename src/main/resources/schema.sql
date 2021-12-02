@@ -1,5 +1,6 @@
 drop table if exists sys.office_floor_map;
 drop table if exists sys.reserved_desk;
+drop table if exists sys.equipment;
 
 CREATE TABLE `office_floor_map`
 (
@@ -19,4 +20,13 @@ CREATE TABLE `reserved_desk`
     `floor_map_id`  int(8),
     `reserved_date` date,
     PRIMARY KEY (`user_id`)
+);
+
+CREATE TABLE `equipment`
+(
+    `item_id` varchar(20),
+    `name` varchar(20),
+    `description` varchar(50),
+    `desk_id`     varchar(20),
+    PRIMARY KEY (`item_id`)
 );

@@ -1,5 +1,6 @@
 package com.uncc.ssdi.openofficeapi.controller;
 
+import com.uncc.ssdi.openofficeapi.entity.Equipment;
 import com.uncc.ssdi.openofficeapi.entity.OfficeFloorMap;
 import com.uncc.ssdi.openofficeapi.entity.ReservedDesk;
 import com.uncc.ssdi.openofficeapi.model.SearchRequest;
@@ -29,5 +30,10 @@ public class OpenOfficeController {
     @PostMapping("/save")
     public String save(@RequestBody ReservedDesk reservedDesk) {
         return openOfficeService.save(reservedDesk);
+    }
+
+    @PostMapping("/rent")
+    public String rent(@RequestBody Equipment equipment) {
+        return openOfficeService.rent(equipment);
     }
 }

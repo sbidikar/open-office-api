@@ -1,8 +1,10 @@
 package com.uncc.ssdi.openofficeapi.service;
 
+import com.uncc.ssdi.openofficeapi.entity.Equipment;
 import com.uncc.ssdi.openofficeapi.entity.OfficeFloorMap;
 import com.uncc.ssdi.openofficeapi.entity.ReservedDesk;
 import com.uncc.ssdi.openofficeapi.model.SearchRequest;
+import com.uncc.ssdi.openofficeapi.repository.EquipmentRepository;
 import com.uncc.ssdi.openofficeapi.repository.OfficeFloorMapRepository;
 import com.uncc.ssdi.openofficeapi.repository.ReservedDeskRepository;
 import org.apache.commons.collections4.CollectionUtils;
@@ -21,10 +23,13 @@ public class OpenOfficeService {
 
     private ReservedDeskRepository reservedDeskRepository;
 
+    private EquipmentRepository equipmentRepository;
+
     @Autowired
-    public OpenOfficeService(OfficeFloorMapRepository officeFloorMapRepository, ReservedDeskRepository reservedDeskRepository) {
+    public OpenOfficeService(OfficeFloorMapRepository officeFloorMapRepository, ReservedDeskRepository reservedDeskRepository, EquipmentRepository equipmentRepository) {
         this.officeFloorMapRepository = officeFloorMapRepository;
         this.reservedDeskRepository = reservedDeskRepository;
+        this.equipmentRepository = equipmentRepository;
     }
 
     public List<OfficeFloorMap> findAll() {
@@ -63,6 +68,26 @@ public class OpenOfficeService {
             }
         }
         return "Error: invalid desk reservation.";
+    }
+
+    public String rent(Equipment equipment) {
+        List<Equipment> rentedEquipment = equipmentRepository.findAll();
+
+        if(rentedEquipment.isEmpty()) {
+            equipmentRepository.save(equipment);
+            return "Equipment rented successfully!";
+        } else {
+            Iterator<Equipment> iterator = rentedEquipment.iterator();
+            while(iterator.hasNext()) {
+                if(iterator.next().getItemId() == equipment.getItemId() && iterator.next().getName().equals(equipment.getName())) {
+                    return "Error: equipment already rented.";
+                } else {
+                    equipmentRepository.save(equipment);
+                    return "Equipment rented successfully!";
+                }
+            }
+        }
+        return "Error: invalid equipment request.";
     }
 
 }
