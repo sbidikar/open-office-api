@@ -8,6 +8,7 @@ import com.uncc.ssdi.openofficeapi.service.OpenOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,11 @@ public class OpenOfficeController {
     @PostMapping("/search")
     public List<OfficeFloorMap> search(@RequestBody SearchRequest searchRequest) {
         return openOfficeService.search(searchRequest);
+    }
+
+    @PostMapping("/searchForDate")
+    public List<OfficeFloorMap> search(@RequestBody Date reserveDate) {
+        return openOfficeService.searchForDate(reserveDate);
     }
 
     @PostMapping("/save")

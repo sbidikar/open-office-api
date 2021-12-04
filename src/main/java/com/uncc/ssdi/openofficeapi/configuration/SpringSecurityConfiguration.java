@@ -22,6 +22,8 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers( "/search").permitAll()
                 .antMatchers( "/save").permitAll()
                 .antMatchers( "/rent").permitAll()
+                .antMatchers( "/swagger-ui.html").permitAll()
+                .antMatchers( "/searchForDate").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
