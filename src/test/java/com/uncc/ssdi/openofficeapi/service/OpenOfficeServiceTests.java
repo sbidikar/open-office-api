@@ -1,9 +1,11 @@
 package com.uncc.ssdi.openofficeapi.service;
 
+import com.uncc.ssdi.openofficeapi.entity.Equipment;
 import com.uncc.ssdi.openofficeapi.entity.OfficeFloorMap;
 import com.uncc.ssdi.openofficeapi.entity.ReservedDesk;
 import com.uncc.ssdi.openofficeapi.model.SearchRequest;
 import com.uncc.ssdi.openofficeapi.model.UserDetail;
+import com.uncc.ssdi.openofficeapi.repository.EquipmentRepository;
 import com.uncc.ssdi.openofficeapi.repository.OfficeFloorMapRepository;
 import com.uncc.ssdi.openofficeapi.repository.ReservedDeskRepository;
 import org.junit.jupiter.api.Test;
@@ -28,6 +30,8 @@ public class OpenOfficeServiceTests {
     OfficeFloorMapRepository officeFloorMapRepository;
     @Mock
     ReservedDeskRepository reservedDeskRepository;
+    @Mock
+    EquipmentRepository equipmentRepository;
 
     @InjectMocks
     OpenOfficeService openOfficeService;
@@ -75,5 +79,12 @@ public class OpenOfficeServiceTests {
         List<OfficeFloorMap> searchOutput = openOfficeService.search(testSR);
         OfficeFloorMap result = searchOutput.get(0);
         assertEquals(result.getBuilding(), testSR.getBuilding());
+    }
+
+    @Test
+    public void testRent() {
+        Equipment testEquipment = new Equipment();
+        String rentOutput = openOfficeService.rent(testEquipment);
+        assertEquals(rentOutput,"Equipment rented successfully!");
     }
 }
