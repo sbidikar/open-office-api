@@ -3,6 +3,7 @@ package com.uncc.ssdi.openofficeapi.controller;
 import com.uncc.ssdi.openofficeapi.entity.Equipment;
 import com.uncc.ssdi.openofficeapi.entity.OfficeFloorMap;
 import com.uncc.ssdi.openofficeapi.entity.ReservedDesk;
+import com.uncc.ssdi.openofficeapi.model.DateRequest;
 import com.uncc.ssdi.openofficeapi.model.SearchRequest;
 import com.uncc.ssdi.openofficeapi.service.OpenOfficeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class OpenOfficeController {
     }
 
     @PostMapping("/searchForDate")
-    public List<OfficeFloorMap> search(@RequestBody Date reserveDate) {
-        return openOfficeService.searchForDate(reserveDate);
+    public List<OfficeFloorMap> search(@RequestBody DateRequest dateRequest) {
+        return openOfficeService.searchForDate(dateRequest.getReserveDate());
     }
 
     @PostMapping("/save")
