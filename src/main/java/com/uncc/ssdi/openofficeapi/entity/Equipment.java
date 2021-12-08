@@ -18,7 +18,7 @@ public class Equipment implements Serializable {
 
     @JsonProperty
     @Column
-    private String description;
+    private String purpose;
 
     @JsonProperty
     @Column
@@ -40,12 +40,12 @@ public class Equipment implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPurpose() {
+        return purpose;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
     }
 
     public String getDeskId() {

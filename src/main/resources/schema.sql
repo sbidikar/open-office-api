@@ -26,7 +26,7 @@ CREATE TABLE `equipment`
 (
     `item_id` varchar(20),
     `name` varchar(20),
-    `description` varchar(50),
+    `purpose` varchar(50),
     `desk_id`     varchar(20),
     PRIMARY KEY (`item_id`)
 );

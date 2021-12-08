@@ -10,11 +10,12 @@ import com.uncc.ssdi.openofficeapi.repository.ReservedDeskRepository;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.Iterator;
 
 @Service
 public class OpenOfficeService {
@@ -40,8 +41,8 @@ public class OpenOfficeService {
         List<ReservedDesk> reservedDesks = reservedDeskRepository.findByReservedDate(searchRequest.getReserveDate());
         List<OfficeFloorMap> officeFloorMaps = findAll();
         List<OfficeFloorMap> filteredOfficeFloorMap = officeFloorMaps.stream()
-                .filter(a -> null != searchRequest.getBuilding() ? searchRequest.getBuilding().equals(a.getBuilding()): true)
-                .filter(a -> null != searchRequest.getFloor() ? searchRequest.getFloor().equals(a.getFloor()): true)
+                .filter(a -> null != searchRequest.getBuilding() ? searchRequest.getBuilding().equals(a.getBuilding()) : true)
+                .filter(a -> null != searchRequest.getFloor() ? searchRequest.getFloor().equals(a.getFloor()) : true)
                 .collect(Collectors.toList());
         if (CollectionUtils.isNotEmpty(reservedDesks)) {
             reservedDesks.forEach(r -> {
@@ -51,15 +52,25 @@ public class OpenOfficeService {
         return filteredOfficeFloorMap;
     }
 
+    public List<OfficeFloorMap> searchForDate(Date reserveDate) {
+        List<OfficeFloorMap> reservedForDate = new ArrayList<>();
+        List<ReservedDesk> reservedDesks = reservedDeskRepository.findByReservedDate(reserveDate);
+        List<OfficeFloorMap> officeFloorMaps = findAll();
+        if (CollectionUtils.isNotEmpty(reservedDesks)) {
+            reservedForDate = officeFloorMaps.stream().filter(ofm -> ofm.getId().equals(reservedDesks.get(0).getFloorMapId())).collect(Collectors.toList());
+        }
+        return reservedForDate;
+    }
+
     public String save(ReservedDesk reservedDesk) {
         List<ReservedDesk> reservedDesks = reservedDeskRepository.findAll();
-        if(reservedDesks.isEmpty()) {
+        if (reservedDesks.isEmpty()) {
             reservedDeskRepository.save(reservedDesk);
             return "Desk reserved successfully!";
         } else {
             Iterator<ReservedDesk> iterator = reservedDesks.iterator();
-            while(iterator.hasNext()) {
-                if(iterator.next().getFloorMapId().equals(reservedDesk.getFloorMapId()) && iterator.next().getReservedDate().equals(reservedDesk.getReservedDate())) {
+            while (iterator.hasNext()) {
+                if (iterator.next().getFloorMapId().equals(reservedDesk.getFloorMapId()) && iterator.next().getReservedDate().equals(reservedDesk.getReservedDate())) {
                     return "Error: desk already reserved.";
                 } else {
                     reservedDeskRepository.save(reservedDesk);
@@ -73,13 +84,13 @@ public class OpenOfficeService {
     public String rent(Equipment equipment) {
         List<Equipment> rentedEquipment = equipmentRepository.findAll();
 
-        if(rentedEquipment.isEmpty()) {
+        if (rentedEquipment.isEmpty()) {
             equipmentRepository.save(equipment);
             return "Equipment rented successfully!";
         } else {
             Iterator<Equipment> iterator = rentedEquipment.iterator();
-            while(iterator.hasNext()) {
-                if(iterator.next().getItemId() == equipment.getItemId() && iterator.next().getName().equals(equipment.getName())) {
+            while (iterator.hasNext()) {
+                if (iterator.next().getItemId() == equipment.getItemId() && iterator.next().getName().equals(equipment.getName())) {
                     return "Error: equipment already rented.";
                 } else {
                     equipmentRepository.save(equipment);
